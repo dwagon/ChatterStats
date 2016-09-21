@@ -95,7 +95,7 @@ class ChatterStats(object):
         if filename is None:
             filename = self.statefile
         try:
-            with open(filename) as fh:
+            with open(filename, 'rb') as fh:
                 self.history_ports = pickle.load(fh)
                 self.history_conns = pickle.load(fh)
         except Exception as exc:
@@ -107,7 +107,7 @@ class ChatterStats(object):
     def save(self, filename=None):
         if filename is None:
             filename = self.statefile
-        with open(filename, 'w') as fh:
+        with open(filename, 'wb') as fh:
             pickle.dump(self.history_ports, fh)
             pickle.dump(self.history_conns, fh)
 
@@ -117,7 +117,7 @@ def main():
     s = ChatterStats(statefile='/tmp/chatter.pickle')
     s.load()
     s.collect()
-    print s.analyze()
+    print(s.analyze())
     s.save()
 
 ##############################################################################
